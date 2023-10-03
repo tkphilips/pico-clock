@@ -6,7 +6,7 @@ class Clock:
     
     @property
     def time(self):
-        t_str = '{0}:{1}:{2}'.format(
+        t_str = '{0:02d}:{1:02d}:{2:02d}'.format(
             self.dt.hour,
             self.dt.minute,
             self.dt.second)
@@ -16,7 +16,7 @@ class Clock:
     
     @property
     def date(self):
-        d_str = '{0}-{1}-{2}'.format(
+        d_str = '{0}-{1:02d}-{2:02d}'.format(
             self.dt.year,
             self.dt.month,
             self.dt.day)
