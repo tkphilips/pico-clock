@@ -3,6 +3,7 @@ import interstate75
 import time
 
 from clock import Clock
+from progress import ProgressBar
 
 DISPLAY_TYPE = interstate75.DISPLAY_INTERSTATE75_64X32
 
@@ -32,12 +33,16 @@ def clear_screen(graphics):
     
 
 def run_clock():
+    pbar = ProgressBar(2, 16, 60, 0, 59)
+    
     while True:
         clock = Clock()
+        pbar.set_progress(clock.dt.second)
         
         clear_screen(graphics)
         draw_clock(graphics, clock)
         draw_date(graphics, clock)
+        pbar.draw(graphics)
         
         i75.update(graphics)
         time.sleep(1)
