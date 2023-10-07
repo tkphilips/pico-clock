@@ -53,3 +53,11 @@ class Black(Colour):
     HUE = 0.0
     SAT = 0.0
     
+    @property
+    def brightness(self):
+        return 0.0
+    
+    @brightness.setter
+    def brightness(self, val):
+        pass
+    
