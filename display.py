@@ -5,6 +5,7 @@ import time
 from clock import Clock
 from progress import ProgressBar
 from colour import White, Green
+from message import ScrollMessage
 
 DISPLAY_TYPE = interstate75.DISPLAY_INTERSTATE75_64X32
 
@@ -38,8 +39,13 @@ def clear_screen(graphics):
 def run_clock():
     pbar = ProgressBar(2, 16, 60, 0, 59)
     brightness = 0.0
+    sm = ScrollMessage()
     
     while True:
+        if i75.switch_pressed(interstate75.SWITCH_A):
+            sm.print(i75, graphics, 'button a')
+            continue
+        
         brightness += 0.01
         clock = Clock()
         pbar.set_progress(clock.dt.second)
@@ -54,8 +60,8 @@ def run_clock():
         i75.update(graphics)
         time.sleep(0.025)
         
-        if i75.switch_pressed(interstate75.SWITCH_A):
-            break
+
+            
         
         if i75.switch_pressed(interstate75.SWITCH_B):
             from clock import NetworkTime
