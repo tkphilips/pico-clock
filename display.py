@@ -46,6 +46,16 @@ def run_clock():
         
         i75.update(graphics)
         time.sleep(1)
+        
+        if i75.switch_pressed(interstate75.SWITCH_A):
+            break
+        
+        if i75.switch_pressed(interstate75.SWITCH_B):
+            from clock import NetworkTime
+            from wifi import Wifi
+            wc = Wifi()
+            nt = NetworkTime(wc)
+            nt.sync()
 
 def get_display():
     return graphics

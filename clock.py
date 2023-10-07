@@ -1,4 +1,5 @@
 import time
+import ntptime
 
 class Clock:
     def __init__(self):
@@ -25,8 +26,9 @@ class Clock:
 
         
 class Time:
-    def __init__(self):
+    def __init__(self, timezone=1):
         t = time.localtime()
+        t = time.localtime(time.time() + (3600 * timezone))
         
         self.year = t[0]
         self.month = t[1]
@@ -34,5 +36,27 @@ class Time:
         self.hour = t[3]
         self.minute = t[4]
         self.second = t[5]
+        
+        
+class NetworkTime:
+    def __init__(self, wifi):
+        self.wifi = wifi
+    
+    def connect(self):
+        if self.wifi.isconnected():
+            return
+        
+        self.wifi.connect()
+        
+        while not self.wifi.isconnected():
+            print('ntp waiting for wifi...')
+            time.sleep(3)
+        
+    def sync(self):
+        self.connect()
+        print(f'time before sync: {time.localtime()}')
+        ntptime.settime()
+        print(f' time after sync: {time.localtime()}')
+        
         
 
